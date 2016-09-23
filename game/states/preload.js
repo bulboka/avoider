@@ -12,7 +12,8 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('yeoman', 'assets/yeoman-logo.png');
+
+    this.load.image('obst_diamond0', 'assets/obst_diamond0.png');
 
   },
   create: function() {

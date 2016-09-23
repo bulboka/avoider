@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(640, 960, Phaser.AUTO, 'avoider');
+  var game = new Phaser.Game(480, 720, Phaser.AUTO, 'avoider');
 
   // Game States
   game.state.add('boot', require('./states/boot'));
@@ -63,33 +63,32 @@ GameOver.prototype = {
 module.exports = GameOver;
 
 },{}],4:[function(require,module,exports){
-
 'use strict';
-function Menu() {}
+function Menu() {
+}
 
 Menu.prototype = {
-  preload: function() {
+	preload: function () {
 
-  },
-  create: function() {
-    var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
-    this.sprite = this.game.add.sprite(this.game.world.centerX, 138, 'yeoman');
-    this.sprite.anchor.setTo(0.5, 0.5);
+	},
+	create: function () {
+		var style = { font: '65px Futura', fill: '#ffffff', align: 'center'};
+		this.logo = this.game.add.sprite(this.game.world.centerX, 260, 'obst_diamond0');
+		this.logo.anchor.setTo(0.5, 0.5);
 
-    this.titleText = this.game.add.text(this.game.world.centerX, 300, '\'Allo, \'Allo!', style);
-    this.titleText.anchor.setTo(0.5, 0.5);
+		this.titleText = this.game.add.text(this.game.world.centerX, 540, 'EGG', style);
+		this.titleText.anchor.setTo(0.5, 0.5);
 
-    this.instructionsText = this.game.add.text(this.game.world.centerX, 400, 'Click anywhere to play "Click The Yeoman Logo"', { font: '16px Arial', fill: '#ffffff', align: 'center'});
-    this.instructionsText.anchor.setTo(0.5, 0.5);
-
-    this.sprite.angle = -20;
-    this.game.add.tween(this.sprite).to({angle: 20}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
-  },
-  update: function() {
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('play');
-    }
-  }
+		this.game.add.tween(this.logo.scale).to({x: 1.2, y: 1.2}, 30, Phaser.Easing.Cubic.Out, false, 0)
+			.to({x: 1, y: 1}, 450, Phaser.Easing.Cubic.In)
+			.loop()
+			.start();
+	},
+	update: function () {
+		if (this.game.input.activePointer.justPressed()) {
+			this.game.state.start('play');
+		}
+	}
 };
 
 module.exports = Menu;
@@ -136,7 +135,8 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('yeoman', 'assets/yeoman-logo.png');
+
+    this.load.image('obst_diamond0', 'assets/obst_diamond0.png');
 
   },
   create: function() {
